@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "164503490494",
+    "firebase_url": "https://ciudadesmoviles-34a67.firebaseio.com",
+    "project_id": "ciudadesmoviles-34a67",
+    "storage_bucket": "ciudadesmoviles-34a67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164503490494:android:887e94504fd918d4d5f3ef",
+        "android_client_info": {
+          "package_name": "com.ciudadesmoviles.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164503490494-puce9mclpdbrlqpk17ubq2o9u7en028d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASTqNMt9ooC_-7102ZNamGxS9Fmz37rpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164503490494-puce9mclpdbrlqpk17ubq2o9u7en028d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
