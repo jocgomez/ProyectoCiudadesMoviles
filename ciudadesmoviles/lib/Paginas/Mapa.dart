@@ -44,7 +44,7 @@ class _MapaPaginaState extends State<MapaPagina> {
       }
     }
 
-    var _permissionGranted = await _location.hasPermission();
+    /* var _permissionGranted = await _location.hasPermission();
     if (_permissionGranted == PermissionStatus.DENIED) {
       _permissionGranted = await _location.requestPermission();
       if (_permissionGranted != PermissionStatus.GRANTED) {
@@ -89,7 +89,7 @@ class _MapaPaginaState extends State<MapaPagina> {
       Common.longitud = event.longitude;
 
       print("${event.latitude},${event.longitude}");
-    });
+    }); */
   }
 
   void _buscarTiendas() {}
