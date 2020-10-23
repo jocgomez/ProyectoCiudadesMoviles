@@ -38,11 +38,16 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.ciudadesmoviles"
-        minSdkVersion 16
+        applicationId "com.ciudadesmoviles.app"
+        minSdkVersion 28
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        def secureProps = new Properties()
+        if (file("../secure.properties").exists()) {
+                file("../secure.properties")?.withInputStream { secureProps.load(it) }
+        }
+        resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
     }
 
     buildTypes {
@@ -63,3 +68,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
     implementation 'com.google.firebase:firebase-analytics'
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       //AQUI SE VAN A CONFIGURAR MUCHOS ESTILOS DE LA APLICACIÓN, COMO EL  TEMA,
       //QUE INCLUYE COLORES, TIOPOGRAFIA Y MUCHO MAS
+      debugShowCheckedModeBanner: false,
       title: 'Ciudades móviles',
       theme: ThemeData(
         primarySwatch: Colors.blue,
