@@ -93,7 +93,7 @@ class _LoginPaginaState extends State<LoginPagina> {
 
   void _interfazCelular() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => InicioCelular()));
+        .pushNamed("/celular");
   } //Fin método
 
 //****************************************************************************************************/

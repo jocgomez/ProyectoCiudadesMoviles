@@ -10,4 +10,7 @@ class Estilos {
   static const Color colorBotonDeshabilitado = Colors.grey;
   static const Color bordeBoton = Colors.blue;
   static const Color colorazul = Colors.blue;
+  
+  //Estilos de los textos
+  static const TextStyle estiloTextoCelular = TextStyle(fontSize: 17);
 }
