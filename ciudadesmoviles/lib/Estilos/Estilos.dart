@@ -5,8 +5,9 @@ class Estilos {
   static const Color colorMapa = Color(0x806550);
 
   //Estilos de los botones
-  static const TextStyle estiloTextoBoton = TextStyle();
+  static const TextStyle estiloTextoBoton = TextStyle(color: Colors.white, fontSize: 15);
   static const Color estiloBoldAzul12 = Colors.blueAccent;
   static const Color colorBotonDeshabilitado = Colors.grey;
-  static const Color bordeBoton = Colors.blueGrey;
+  static const Color bordeBoton = Colors.blue;
+  static const Color colorazul = Colors.blue;
 }

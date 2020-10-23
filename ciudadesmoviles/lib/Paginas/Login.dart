@@ -10,8 +10,8 @@ class LoginPagina extends StatefulWidget {
 }
 
 class _LoginPaginaState extends State<LoginPagina> {
+
   Location _location = Location();
-  final _estiloTexto = new TextStyle(color: Colors.white, fontSize: 15);
   final _estiloTextoGobierno = new TextStyle(color: Colors.blue, fontSize: 17);
 
   @override
@@ -55,12 +55,6 @@ class _LoginPaginaState extends State<LoginPagina> {
                 width: 250,
                 height: 40,
                 /*color: Colors.cyan,*/ child: _botonGobierno()),
-            BotonAtomo(
-                color: Estilos.colorPrincipal,
-                estiloTexto: Estilos.estiloTextoBoton,
-                colorBorde: Estilos.bordeBoton,
-                funcion: () {},
-                texto: "Ejemplo de botón")
           ],
         ),
       ),
@@ -71,17 +65,20 @@ class _LoginPaginaState extends State<LoginPagina> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RaisedButton(
-            child: Text('Iniciar con celular', style: _estiloTexto),
-            color: Colors.blue,
-            onPressed: () {
-              _interfazCelular();
-            }),
-        RaisedButton(
-            child: Text(' Iniciar con Gmail ', style: _estiloTexto),
-            color: Colors.blue,
-            onPressed: () {}),
-      ],
+        
+        BotonAtomo(color: Estilos.colorazul, 
+                   estiloTexto: Estilos.estiloTextoBoton , 
+                   texto: "Iniciar con celular", 
+                   colorBorde: Estilos.bordeBoton, 
+                   funcion: (){_interfazCelular();}),
+
+        BotonAtomo(color: Estilos.colorazul, 
+                   estiloTexto: Estilos.estiloTextoBoton , 
+                   texto: " Iniciar con Gmail ", 
+                   colorBorde: Estilos.bordeBoton, 
+                   funcion: (){}),
+        
+        ],
     );
   }
 
