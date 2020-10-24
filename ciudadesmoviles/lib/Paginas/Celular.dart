@@ -4,107 +4,83 @@ import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class InicioCelular extends StatefulWidget{
-
+class InicioCelular extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-
     return _InicioCelularState();
-  
-  }//Fin método
+  } //Fin método
 
-}//Fin clase
+} //Fin clase
 
-class _InicioCelularState extends State{
-
+class _InicioCelularState extends State {
   String codigoFirebase;
   String codigoUsuario;
-  String verificacionId; 
+  String verificacionId;
 
   final codigo1 = TextEditingController();
-  
-  Future<void> autenticacionUsuario(String numeroTelefono) async{
 
-    final PhoneCodeAutoRetrievalTimeout autoRetrieval = (String verId){
-
+  Future<void> autenticacionUsuario(String numeroTelefono) async {
+    final PhoneCodeAutoRetrievalTimeout autoRetrieval = (String verId) {
       this.verificacionId = verId;
-
     };
 
-    final PhoneCodeSent smsCodeSent = (String verId, [int forceCodeResent]){
-
+    final PhoneCodeSent smsCodeSent = (String verId, [int forceCodeResent]) {
       this.verificacionId = verId;
-
     };
 
-    final PhoneVerificationCompleted verificationSucess = (AuthCredential credential) async{
+    final PhoneVerificationCompleted verificationSucess =
+        (AuthCredential credential) async {
+      AuthResult resultados =
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
-     AuthResult resultados = await FirebaseAuth.instance.signInWithCredential(credential);
+      FirebaseUser usuario = resultados.user;
 
-     FirebaseUser usuario = resultados.user;
-
-     if(usuario != null){
-
-          Navigator.of(context).pushNamed("/tarjeta");
-
-       }else{
-
-          print("error");
-
-       }//Fin condición
-
+      if (usuario != null) {
+        Navigator.of(context).pushNamed("/tarjeta");
+      } else {
+        print("error");
+      } //Fin condición
     };
 
-    final PhoneVerificationFailed verficationFail = (AuthException exception){
-
+    final PhoneVerificationFailed verficationFail = (AuthException exception) {
       print("Error , ${exception.message}");
-
     };
 
     print("Número telefono: " + numeroTelefono);
 
     FirebaseAuth _auth = FirebaseAuth.instance;
-    
-    _auth.verifyPhoneNumber(
-      phoneNumber: numeroTelefono, 
-      timeout: const Duration(seconds: 60), 
-      verificationCompleted: verificationSucess, 
-      verificationFailed: verficationFail, 
-      codeSent: smsCodeSent, 
-      codeAutoRetrievalTimeout: autoRetrieval
-      );
 
-  }//Fin método
+    _auth.verifyPhoneNumber(
+        phoneNumber: numeroTelefono,
+        timeout: const Duration(seconds: 60),
+        verificationCompleted: verificationSucess,
+        verificationFailed: verficationFail,
+        codeSent: smsCodeSent,
+        codeAutoRetrievalTimeout: autoRetrieval);
+  } //Fin método
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-
         title: Text('Inicio sesión con celular'),
-
       ),
-
       body: Center(
-
         child: Column(
-
           children: [
-
             SizedBox(height: 75),
             Container(
                 width: 160,
                 height: 160,
-                /*color: Colors.red,*/ 
+                /*color: Colors.red,*/
                 child: Image.asset('assets/restaurante.png')),
             SizedBox(height: 15),
             Container(
                 alignment: Alignment.center,
                 width: 220,
                 height: 40,
-                /*color: Colors.blue,*/ 
+                /*color: Colors.blue,*/
                 child: Text('CapacidadApp',
                     style: TextStyle(fontSize: 30),
                     textAlign: TextAlign.center)),
@@ -116,19 +92,14 @@ class _InicioCelularState extends State{
               child: TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  filled: true,
-                  hintText: "N° celular",
-                  prefixIcon: Icon(Icons.phone_android)
-                ),
-                onChanged: (numero){
-
-                  if(numero.length == 10){
-
+                    filled: true,
+                    hintText: "N° celular",
+                    prefixIcon: Icon(Icons.phone_android)),
+                onChanged: (numero) {
+                  if (numero.length == 10) {
                     print(numero);
                     autenticacionUsuario("+57" + numero);
-
-                  }//Fin condición
-
+                  } //Fin condición
                 },
               ),
             ),
@@ -137,7 +108,8 @@ class _InicioCelularState extends State{
               width: 250,
               height: 20,
               /*color: Colors.deepOrange,*/
-              child: Text('Ingrese el código de verificación', style: Estilos.estiloTextoCelular),
+              child: Text('Ingrese el código de verificación',
+                  style: Estilos.estiloTextoCelular),
             ),
             SizedBox(height: 10),
             Container(
@@ -146,57 +118,47 @@ class _InicioCelularState extends State{
               /*color: Colors.green,*/
               child: PinFieldAutoFill(
                 codeLength: 6,
-                onCodeChanged: (codigo){
-
+                onCodeChanged: (codigo) {
                   codigoUsuario = codigo1.text;
-
                 },
                 controller: codigo1,
               ),
             ),
             SizedBox(height: 40),
             Container(
-              width: 240,
-              height: 50,
-              color: Colors.lime,
-              child:  BotonAtomo(color: Estilos.colorazul, 
-                                 estiloTexto: Estilos.estiloTextoBoton , 
-                                 texto: "Iniciar sesión", 
-                                 colorBorde: Estilos.bordeBoton, 
-                                 funcion: (){_ingresarSesion();})
-            )
-
+                width: 240,
+                height: 50,
+                color: Colors.lime,
+                child: BotonAtomo(
+                    color: Estilos.colorazul,
+                    estiloTexto: Estilos.estiloTextoBoton,
+                    texto: "Iniciar sesión",
+                    colorBorde: Estilos.bordeBoton,
+                    funcion: () {
+                      _ingresarSesion();
+                    }))
           ],
-
         ),
-
       ),
-
     );
+  } //Fin Widget
 
-  }//Fin Widget
+  void _ingresarSesion() async {
+    if (codigoUsuario.length != 0) {
+      AuthCredential credenciales = PhoneAuthProvider.getCredential(
+          verificationId: this.verificacionId, smsCode: codigoUsuario);
+      AuthResult resultados =
+          await FirebaseAuth.instance.signInWithCredential(credenciales);
 
-  void _ingresarSesion() async{
+      FirebaseUser user = resultados.user;
 
-   if(codigoUsuario.length != 0){
+      if (user != null) {
+        Navigator.of(context).pushNamed("/tarjeta");
+      } else {
+        print("error");
+      } //Fin condición
 
-       AuthCredential credenciales = PhoneAuthProvider.getCredential(verificationId: this.verificacionId, smsCode: codigoUsuario);
-       AuthResult resultados = await FirebaseAuth.instance.signInWithCredential(credenciales);
+    } //Fin condición
+  } //Fin método
 
-       FirebaseUser user = resultados.user;
-
-       if(user != null){
-
-          Navigator.of(context).pushNamed("/tarjeta");
-
-       }else{
-
-          print("error");
-
-       }//Fin condición
-
-    }//Fin condición
-
-  }//Fin método
-
-}//Fin clase
+} //Fin clase

@@ -42,7 +42,9 @@ class _MapaPaginaState extends State<MapaPagina> {
     BitmapDescriptor.fromAssetImage(
             ImageConfiguration(size: Size(32, 32)), 'assets/img/iconos/pin.png')
         .then((onValue) {
-      myIcon = onValue;
+      setState(() {
+        myIcon = onValue;
+      });
     });
 
     permisoUbicacion();
@@ -131,7 +133,7 @@ class _MapaPaginaState extends State<MapaPagina> {
     Circle(
       circleId: CircleId("1"),
       center: LatLng(Usuario.latitud, Usuario.longitud),
-      radius: 10000,
+      radius: 5000,
       fillColor: Estilos.colorMapa,
       strokeWidth: 0,
     )
@@ -151,7 +153,6 @@ class _MapaPaginaState extends State<MapaPagina> {
     if (_permissionGranted == PermissionStatus.DENIED) {
       _permissionGranted = await _location.requestPermission();
       if (_permissionGranted != PermissionStatus.GRANTED) {
-        print("No permission");
         return;
       }
     }
@@ -161,7 +162,6 @@ class _MapaPaginaState extends State<MapaPagina> {
     // EMPIEZA A ESCUCHAR LOS CAMBIOS DE POSICIÓN LATITUD LONGITUD
     subscription = _location.onLocationChanged().listen((LocationData event) {
       if (_mapController != null) {
-        print("Tamaño tienda: ${tiendas.length}");
         double minX = tiendas.map((e) => e.position.latitude).reduce(math.min);
         double maxX = tiendas.map((e) => e.position.latitude).reduce(math.max);
         double minY = tiendas.map((e) => e.position.longitude).reduce(math.min);
@@ -191,8 +191,6 @@ class _MapaPaginaState extends State<MapaPagina> {
       Usuario.longitud = event.longitude;
 
       setState(() {});
-
-      print("Localización: ${event.latitude},${event.longitude}");
     });
   }
 
@@ -210,8 +208,7 @@ class _MapaPaginaState extends State<MapaPagina> {
             element['foto'] != null) {
           double distancia =
               calcularDistancia(element['latitud'], element['longitud']);
-          print(distancia);
-          if (distancia <= 10) {
+          if (distancia <= 5) {
             Tienda tienda = new Tienda(
                 nit: element['nit'],
                 nombre: element['nombre'],
