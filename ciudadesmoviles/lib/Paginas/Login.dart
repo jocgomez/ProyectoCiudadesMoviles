@@ -112,7 +112,7 @@ class _LoginPaginaState extends State<LoginPagina> {
     if (_permissionGranted == PermissionStatus.DENIED) {
       _permissionGranted = await _location.requestPermission();
       if (_permissionGranted != PermissionStatus.GRANTED) {
-        print("No permission");
+
         return;
       }
     }
