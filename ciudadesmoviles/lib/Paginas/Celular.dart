@@ -125,7 +125,7 @@ class _InicioCelularState extends State{
                   if(numero.length == 10){
 
                     print(numero);
-                    autenticacionUsuario("+57"+numero);
+                    autenticacionUsuario("+57" + numero);
 
                   }//Fin condición
 
