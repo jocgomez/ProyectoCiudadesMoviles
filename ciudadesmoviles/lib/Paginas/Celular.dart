@@ -39,21 +39,19 @@ class _InicioCelularState extends State{
 
     final PhoneVerificationCompleted verificationSucess = (AuthCredential credential) async{
 
-     /*AuthResult resultados = await FirebaseAuth.instance.signInWithCredential(credential);
+     AuthResult resultados = await FirebaseAuth.instance.signInWithCredential(credential);
 
      FirebaseUser usuario = resultados.user;
 
      if(usuario != null){
 
-          print("Puede pasar");
+          Navigator.of(context).pushNamed("/tarjeta");
 
        }else{
 
           print("error");
 
-       }//Fin condición*/
-
-       print("Verificado");
+       }//Fin condición
 
     };
 
@@ -127,7 +125,7 @@ class _InicioCelularState extends State{
                   if(numero.length == 10){
 
                     print(numero);
-                    autenticacionUsuario("+1"+numero);
+                    autenticacionUsuario("+57"+numero);
 
                   }//Fin condición
 
