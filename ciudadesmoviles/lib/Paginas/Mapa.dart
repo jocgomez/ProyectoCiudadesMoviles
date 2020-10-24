@@ -44,6 +44,7 @@ class _MapaPaginaState extends State<MapaPagina> {
         .then((onValue) {
       myIcon = onValue;
     });
+
     permisoUbicacion();
     super.initState();
   }
@@ -160,6 +161,7 @@ class _MapaPaginaState extends State<MapaPagina> {
     // EMPIEZA A ESCUCHAR LOS CAMBIOS DE POSICIÓN LATITUD LONGITUD
     subscription = _location.onLocationChanged().listen((LocationData event) {
       if (_mapController != null) {
+        print("Tamaño tienda: ${tiendas.length}");
         double minX = tiendas.map((e) => e.position.latitude).reduce(math.min);
         double maxX = tiendas.map((e) => e.position.latitude).reduce(math.max);
         double minY = tiendas.map((e) => e.position.longitude).reduce(math.min);
@@ -190,12 +192,12 @@ class _MapaPaginaState extends State<MapaPagina> {
 
       setState(() {});
 
-      print("${event.latitude},${event.longitude}");
+      print("Localización: ${event.latitude},${event.longitude}");
     });
   }
 
-  void _buscarTiendas() {
-    Firestore.instance.collection('Tiendas').snapshots().listen((event) {
+  void _buscarTiendas() async {
+    await Firestore.instance.collection('Tiendas').snapshots().listen((event) {
       event.documents.forEach((element) {
         if (element['nombre'] != null &&
             element['latitud'] != null &&
@@ -208,6 +210,7 @@ class _MapaPaginaState extends State<MapaPagina> {
             element['foto'] != null) {
           double distancia =
               calcularDistancia(element['latitud'], element['longitud']);
+          print(distancia);
           if (distancia <= 10) {
             Tienda tienda = new Tienda(
                 nit: element['nit'],

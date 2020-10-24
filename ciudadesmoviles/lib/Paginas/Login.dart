@@ -10,7 +10,6 @@ class LoginPagina extends StatefulWidget {
 }
 
 class _LoginPaginaState extends State<LoginPagina> {
-
   Location _location = Location();
   final _estiloTextoGobierno = new TextStyle(color: Colors.blue, fontSize: 17);
 
@@ -65,26 +64,29 @@ class _LoginPaginaState extends State<LoginPagina> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        
-        BotonAtomo(color: Estilos.colorazul, 
-                   estiloTexto: Estilos.estiloTextoBoton , 
-                   texto: "Iniciar con celular", 
-                   colorBorde: Estilos.bordeBoton, 
-                   funcion: (){_interfazCelular();}),
-
-        BotonAtomo(color: Estilos.colorazul, 
-                   estiloTexto: Estilos.estiloTextoBoton , 
-                   texto: " Iniciar con Gmail ", 
-                   colorBorde: Estilos.bordeBoton, 
-                   funcion: (){}),
-        
-        ],
+        BotonAtomo(
+            color: Estilos.colorazul,
+            estiloTexto: Estilos.estiloTextoBoton,
+            texto: "Iniciar con celular",
+            colorBorde: Estilos.bordeBoton,
+            funcion: () {
+              _interfazCelular();
+            }),
+        BotonAtomo(
+            color: Estilos.colorazul,
+            estiloTexto: Estilos.estiloTextoBoton,
+            texto: " Iniciar con Gmail ",
+            colorBorde: Estilos.bordeBoton,
+            funcion: () {}),
+      ],
     );
   }
 
   Widget _botonGobierno() {
     return FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, "/home");
+        },
         child: Text(
           'Información gubernamental',
           style: _estiloTextoGobierno,
@@ -92,8 +94,7 @@ class _LoginPaginaState extends State<LoginPagina> {
   } //Fin widget
 
   void _interfazCelular() {
-    Navigator.of(context)
-        .pushNamed("/celular");
+    Navigator.of(context).pushNamed("/celular");
   } //Fin método
 
 //****************************************************************************************************/
@@ -112,7 +113,6 @@ class _LoginPaginaState extends State<LoginPagina> {
     if (_permissionGranted == PermissionStatus.DENIED) {
       _permissionGranted = await _location.requestPermission();
       if (_permissionGranted != PermissionStatus.GRANTED) {
-
         return;
       }
     }
