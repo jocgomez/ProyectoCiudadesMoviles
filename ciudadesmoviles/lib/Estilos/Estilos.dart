@@ -4,6 +4,11 @@ class Estilos {
   static const Color colorPrincipal = Colors.redAccent;
   static const Color colorMapa = Color(0x1A2196F3);
 
+  //Estilos tarjetas
+  static const Color disponible = Color(0xFF2ecc71);
+  static const Color moderado = Color(0xFFe67e22);
+  static const Color nodisponible = Color(0xFFc0392b);
+
   //Estilos de los botones
   static const TextStyle estiloTextoBoton =
       TextStyle(color: Colors.white, fontSize: 15);

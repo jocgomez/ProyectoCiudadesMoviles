@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:ciudadesmoviles/Modelos/Usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:ciudadesmoviles/Estilos/Estilos.dart';
+import 'package:ciudadesmoviles/Componentes/Tarjeta.dart';
 
 class HomePagina extends StatefulWidget {
   @override
@@ -32,6 +34,34 @@ class _HomePaginaState extends State<HomePagina> {
     return Scaffold(
       appBar: AppBar(
         title: Text("CapacidApp"),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/img/bg.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: 8,
+          itemBuilder: (context, index) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  child: Tarjeta(
+                    nombre: 'KFC',
+                    direccion: 'Calle 15 #15-8',
+                    calificacion: 2.0,
+                    foto: 'assets/img/KFC.png',
+                    capacidad: 'Capacidad 15/20',
+                    colorCapacidad: Estilos.disponible,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         Navigator.pushNamed(context, "/mapa");
