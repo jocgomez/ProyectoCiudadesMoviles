@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'dart:math' as math;
 import 'dart:math' show cos, sqrt, asin;
+import 'package:ciudadesmoviles/Componentes/Tarjeta.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
 import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 import 'package:ciudadesmoviles/Modelos/Usuario.dart';
@@ -69,57 +70,109 @@ class _MapaPaginaState extends State<MapaPagina> {
         title: Text("Mapa"),
       ),
       body: Usuario.latitud == null || Usuario.longitud == null
-          ? Container()
-          : GoogleMap(
-              circles: circuloMapa,
-              markers: //Set.of(markersX.values),//
-                  tiendas
-                      .map((e) => Marker(
-                            onTap: () {
-                              /* listController.animateTo(
-                                    datos.indexWhere(
-                                            (element) => element.uid == e.uid) *
-                                        350.0,
-                                    duration: Duration(milliseconds: 1000),
-                                    curve: Curves.fastOutSlowIn); */
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Stack(
+              children: [
+                GoogleMap(
+                    circles: circuloMapa,
+                    markers: //Set.of(markersX.values),//
+                        tiendas
+                            .map((e) => Marker(
+                                  onTap: () {
+                                    listController.animateTo(
+                                        tiendas.indexWhere((element) =>
+                                                element.nit == e.nit) *
+                                            350.0,
+                                        duration: Duration(milliseconds: 1000),
+                                        curve: Curves.fastOutSlowIn);
+                                  },
+                                  markerId: MarkerId(e.nit),
+                                  position: e.position,
+                                  infoWindow: InfoWindow(
+                                      title: e.nombre,
+                                      snippet: e.direccion,
+                                      onTap: () {
+                                        //abrirDetalles(e.uid);
+                                      }),
+                                  icon: myIcon,
+                                ))
+                            .toSet(),
+                    onMapCreated: (controller) => _mapController = controller,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
+                    compassEnabled: false,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(Usuario.latitud, Usuario.longitud),
+                      zoom: 12.5,
+                    ),
+                    onCameraMove: (CameraPosition position) {
+                      if (_markers.length > 0) {
+                        MarkerId markerId = MarkerId(_markerIdVal());
+                        Marker marker = _markers[markerId];
+                        Marker updatedMarker = marker?.copyWith(
+                          positionParam: position?.target,
+                        );
+                        setState(() {
+                          _markers[markerId] = updatedMarker;
+                          _position = position as Position;
+                        });
+                      }
+                    },
+                    onCameraIdle: () {
+                      obtenerDireccion(
+                          currentLocation?.latitude, currentLocation?.latitude);
+                    }),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 160,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Expanded(
+                          child: ListView.builder(
+                            controller: listController,
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0.0, vertical: 8.0),
+                            itemCount: tiendas.length,
+                            itemBuilder: (context, index) {
+                              var tienda = tiendas[index];
+                              var disponibilidad =
+                                  ((tienda.ocupado / tienda.capacidad) * 100);
+
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Container(
+                                    child: Tarjeta(
+                                      nombre: tienda.nombre,
+                                      direccion: tienda.direccion,
+                                      calificacion: tienda.calificacion,
+                                      foto: 'assets/img/KFC.png',
+                                      capacidad:
+                                          'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
+                                      colorCapacidad: disponibilidad <= 70
+                                          ? Estilos.disponible
+                                          : disponibilidad > 70 &&
+                                                  disponibilidad < 100
+                                              ? Estilos.moderado
+                                              : Estilos.nodisponible,
+                                    ),
+                                  ),
+                                ),
+                              );
                             },
-                            markerId: MarkerId(e.nit),
-                            position: e.position,
-                            infoWindow: InfoWindow(
-                                title: e.nombre,
-                                snippet: e.direccion,
-                                onTap: () {
-                                  //abrirDetalles(e.uid);
-                                }),
-                            icon: myIcon,
-                          ))
-                      .toSet(),
-              //Set<Marker>.of(_markers.values),
-              onMapCreated: (controller) => _mapController = controller,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              compassEnabled: false,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(Usuario.latitud, Usuario.longitud),
-                zoom: 12.5,
-              ),
-              onCameraMove: (CameraPosition position) {
-                if (_markers.length > 0) {
-                  MarkerId markerId = MarkerId(_markerIdVal());
-                  Marker marker = _markers[markerId];
-                  Marker updatedMarker = marker?.copyWith(
-                    positionParam: position?.target,
-                  );
-                  setState(() {
-                    _markers[markerId] = updatedMarker;
-                    _position = position as Position;
-                  });
-                }
-              },
-              onCameraIdle: () {
-                obtenerDireccion(
-                    currentLocation?.latitude, currentLocation?.latitude);
-              }),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 

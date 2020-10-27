@@ -51,23 +51,24 @@ class Tarjeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+      margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
       color: Colors.white,
       child: Container(
         decoration: BoxDecoration(
-        border: Border.all(width: 4.0, color: this.colorCapacidad),
-        borderRadius: BorderRadius.circular(5),
+          border: Border.all(width: 4.0, color: this.colorCapacidad),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: InkWell(
           onTap: () {},
           child: Padding(
             padding: EdgeInsets.all(12.0),
             child: Row(
+              //mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
                   child: Container(
-                    width: 150.0,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -75,24 +76,23 @@ class Tarjeta extends StatelessWidget {
                           this.nombre,
                           style: Estilos.estiloTextoCelular,
                         ),
-                        Text(this.direccion,
+                        Text(
+                          this.direccion,
                           style: Estilos.estiloTextoCelular,
                         ),
                         _crearEstrellas(this.calificacion),
                         Row(
                           children: [
                             Text(this.capacidad,
-                            style: Estilos.estiloTextoCelular
-                            ),
+                                style: Estilos.estiloTextoCelular),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(width: 45.0),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0.0),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
                       CircleAvatar(
