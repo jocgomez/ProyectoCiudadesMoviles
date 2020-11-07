@@ -18,8 +18,6 @@ class MapaPagina extends StatefulWidget {
 }
 
 class _MapaPaginaState extends State<MapaPagina> {
-  List<Tienda> tiendas = List();
-
   Location _location = Location();
   StreamSubscription<LocationData> subscription;
   GoogleMapController _mapController;
@@ -78,11 +76,11 @@ class _MapaPaginaState extends State<MapaPagina> {
                 GoogleMap(
                     circles: circuloMapa,
                     markers: //Set.of(markersX.values),//
-                        tiendas
+                        Tienda.tiendas
                             .map((e) => Marker(
                                   onTap: () {
                                     listController.animateTo(
-                                        tiendas.indexWhere((element) =>
+                                        Tienda.tiendas.indexWhere((element) =>
                                                 element.nit == e.nit) *
                                             350.0,
                                         duration: Duration(milliseconds: 1000),
@@ -137,9 +135,9 @@ class _MapaPaginaState extends State<MapaPagina> {
                             scrollDirection: Axis.horizontal,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 0.0, vertical: 8.0),
-                            itemCount: tiendas.length,
+                            itemCount: Tienda.tiendas.length,
                             itemBuilder: (context, index) {
-                              var tienda = tiendas[index];
+                              var tienda = Tienda.tiendas[index];
                               var disponibilidad =
                                   ((tienda.ocupado / tienda.capacidad) * 100);
 
@@ -210,15 +208,19 @@ class _MapaPaginaState extends State<MapaPagina> {
       }
     }
 
-    _buscarTiendas();
+    /* _buscarTiendas(); */
 
     // EMPIEZA A ESCUCHAR LOS CAMBIOS DE POSICIÓN LATITUD LONGITUD
     subscription = _location.onLocationChanged().listen((LocationData event) {
       if (_mapController != null) {
-        double minX = tiendas.map((e) => e.position.latitude).reduce(math.min);
-        double maxX = tiendas.map((e) => e.position.latitude).reduce(math.max);
-        double minY = tiendas.map((e) => e.position.longitude).reduce(math.min);
-        double maxY = tiendas.map((e) => e.position.longitude).reduce(math.max);
+        double minX =
+            Tienda.tiendas.map((e) => e.position.latitude).reduce(math.min);
+        double maxX =
+            Tienda.tiendas.map((e) => e.position.latitude).reduce(math.max);
+        double minY =
+            Tienda.tiendas.map((e) => e.position.longitude).reduce(math.min);
+        double maxY =
+            Tienda.tiendas.map((e) => e.position.longitude).reduce(math.max);
 
         minX = math.min(minX, event.latitude);
         maxX = math.max(maxX, event.latitude);
@@ -247,7 +249,7 @@ class _MapaPaginaState extends State<MapaPagina> {
     });
   }
 
-  void _buscarTiendas() async {
+  /* void _buscarTiendas() async {
     await Firestore.instance.collection('Tiendas').snapshots().listen((event) {
       event.documents.forEach((element) {
         if (element['nombre'] != null &&
@@ -277,7 +279,7 @@ class _MapaPaginaState extends State<MapaPagina> {
       });
       setState(() {});
     });
-  }
+  } */
 
   void obtenerDireccion(double lat, double lng) async {
     if (lat != null && lng != null) {

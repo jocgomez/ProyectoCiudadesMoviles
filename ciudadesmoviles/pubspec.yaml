@@ -36,6 +36,7 @@ dependencies:
   permission_handler: ^4.0.0
   cached_network_image: 2.0.0-rc
   flutter_rating_bar: ^3.0.1+1
+  http: ^0.12.2
 
 dependency_overrides:
   firebase_auth: ^0.16.0

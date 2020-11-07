@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 import 'package:ciudadesmoviles/Modelos/Usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -18,6 +18,7 @@ class _HomePaginaState extends State<HomePagina> {
   @override
   void initState() {
     _initLocation();
+
     super.initState();
   }
 
@@ -43,19 +44,26 @@ class _HomePaginaState extends State<HomePagina> {
           ),
         ),
         child: ListView.builder(
-          itemCount: 8,
+          itemCount: Tienda.tiendas.length,
           itemBuilder: (context, index) {
+            var tienda = Tienda.tiendas[index];
+            var disponibilidad = ((tienda.ocupado / tienda.capacidad) * 100);
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(
                   child: Tarjeta(
-                    nombre: 'KFC',
-                    direccion: 'Calle 15 #15-8',
-                    calificacion: 2.0,
+                    nombre: tienda.nombre,
+                    direccion: tienda.direccion,
+                    calificacion: tienda.calificacion,
                     foto: 'assets/img/KFC.png',
-                    capacidad: 'Capacidad 15/20',
-                    colorCapacidad: Estilos.disponible,
+                    capacidad:
+                        'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
+                    colorCapacidad: disponibilidad <= 70
+                        ? Estilos.disponible
+                        : disponibilidad > 70 && disponibilidad < 100
+                            ? Estilos.moderado
+                            : Estilos.nodisponible,
                   ),
                 ),
               ),
