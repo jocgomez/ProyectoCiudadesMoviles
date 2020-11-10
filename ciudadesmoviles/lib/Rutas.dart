@@ -2,6 +2,7 @@ import 'package:ciudadesmoviles/Paginas/Celular.dart';
 import 'package:ciudadesmoviles/Paginas/Home.dart';
 import 'package:ciudadesmoviles/Paginas/Login.dart';
 import 'package:ciudadesmoviles/Paginas/Mapa.dart';
+import 'package:ciudadesmoviles/Paginas/Menu_Lateral.dart';
 import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> rutasApp() => <String, WidgetBuilder>{
@@ -9,5 +10,6 @@ Map<String, WidgetBuilder> rutasApp() => <String, WidgetBuilder>{
       '/mapa': (BuildContext context) => MapaPagina(),
       '/celular': (BuildContext context) => InicioCelular(),
       '/home': (BuildContext context) => HomePagina(),
+      '/menu': (BuildContext context) => MenuLateral(),
       //'/gobierno': (BuildContext context) => MapaPagina(),
     };

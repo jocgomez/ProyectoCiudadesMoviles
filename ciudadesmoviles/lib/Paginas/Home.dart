@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 import 'package:ciudadesmoviles/Modelos/Usuario.dart';
+import 'package:ciudadesmoviles/Paginas/Menu_Lateral.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
@@ -33,6 +34,7 @@ class _HomePaginaState extends State<HomePagina> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MenuLateral(),
       appBar: AppBar(
         title: Text("CapacidApp"),
       ),
@@ -71,10 +73,6 @@ class _HomePaginaState extends State<HomePagina> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.pushNamed(context, "/mapa");
-      }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
