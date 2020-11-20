@@ -26,4 +26,5 @@ class Estilos {
       TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold);
   static const TextStyle estiloNormalBlanco14 =
       TextStyle(fontSize: 14, color: Colors.white);
+  static const TextStyle estiloTextoTitulo = TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
 }

@@ -36,7 +36,7 @@ class _InicioCelularState extends State {
       FirebaseUser usuario = resultados.user;
 
       if (usuario != null) {
-        Navigator.of(context).pushNamed("/tarjeta");
+        Navigator.of(context).pushNamed("/home");
       } else {
         print("error");
       } //Fin condición
@@ -142,7 +142,7 @@ class _InicioCelularState extends State {
       ),
     );
   } //Fin Widget
-
+  
   void _ingresarSesion() async {
     if (codigoUsuario.length != 0) {
       AuthCredential credenciales = PhoneAuthProvider.getCredential(
@@ -153,7 +153,7 @@ class _InicioCelularState extends State {
       FirebaseUser user = resultados.user;
 
       if (user != null) {
-        Navigator.of(context).pushNamed("/tarjeta");
+        Navigator.of(context).pushNamed("/home");
       } else {
         print("error");
       } //Fin condición

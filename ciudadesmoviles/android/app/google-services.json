@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "164503490494-cjopusmf6f67876uvg5cbfqvtvqvsd1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ciudadesmoviles.app",
+            "certificate_hash": "f1cbbb51856b190b2ea43cf7a67d80e44a6921a8"
+          }
+        },
+        {
+          "client_id": "164503490494-vdbn9fnqleqdjgkss3ohb2pdigu4318c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ciudadesmoviles.app",
+            "certificate_hash": "27d1e12bd0cbc19c9b78a076c8b3a9528da81399"
+          }
+        },
+        {
           "client_id": "164503490494-puce9mclpdbrlqpk17ubq2o9u7en028d.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -43,9 +43,9 @@ class _MenuLateralState extends State<MenuLateral> {
                 Navigator.pushNamed(context, "/mapa");
               }),
               Divider(),
-              _opcionMenuLateral("Crear establecimiento", Icons.store, () {}),
+              _opcionMenuLateral("Crear establecimiento", Icons.store, () {Navigator.pushNamed(context, "/Establecimientos");}),
               Divider(),
-              _opcionMenuLateral("Cerrar sesión", Icons.exit_to_app, () {}),
+              _opcionMenuLateral("Cerrar sesión", Icons.exit_to_app, () {Navigator.pushNamed(context, "/login");}),
               Divider(),
             ],
           ),

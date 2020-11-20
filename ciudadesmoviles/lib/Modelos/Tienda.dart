@@ -27,7 +27,7 @@ class Tienda {
   void traerTiendas() async {
     //CAMBIAR URL AL INICIAR EL SERVIDOR
     final response = await http.get(
-        'http://ec2-54-166-244-32.compute-1.amazonaws.com:3000/traer-establecimientos');
+        'http://10.0.2.2:3000/TraerEstablecimientos');
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -52,4 +52,21 @@ class Tienda {
       throw new Exception("Error while fetching data");
     }
   }
+
+  Future<http.Response> guardarEstablecimiento(String datos) async{
+
+      return await http.post('http://10.0.2.2:3000/datosEnviar',
+
+      headers: <String, String>{
+
+        'Content-Type': 'application/json; charset=UTF-8',
+
+      },
+
+      body: datos
+      
+      );
+
+  }//Fin método
+
 }
