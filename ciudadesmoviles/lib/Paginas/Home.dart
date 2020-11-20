@@ -38,39 +38,46 @@ class _HomePaginaState extends State<HomePagina> {
       appBar: AppBar(
         title: Text("CapacidApp"),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/img/bg.jpg'),
-            fit: BoxFit.cover,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          Tienda().traerTiendas().then((value) {
+            setState(() {});
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/img/bg.jpg'),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: ListView.builder(
-          itemCount: Tienda.tiendas.length,
-          itemBuilder: (context, index) {
-            var tienda = Tienda.tiendas[index];
-            var disponibilidad = ((tienda.ocupado / tienda.capacidad) * 100);
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
-                  child: Tarjeta(
-                    nombre: tienda.nombre,
-                    direccion: tienda.direccion,
-                    calificacion: tienda.calificacion,
-                    foto: 'assets/img/KFC.png',
-                    capacidad:
-                        'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
-                    colorCapacidad: disponibilidad <= 70
-                        ? Estilos.disponible
-                        : disponibilidad > 70 && disponibilidad < 100
-                            ? Estilos.moderado
-                            : Estilos.nodisponible,
+          child: ListView.builder(
+            itemCount: Tienda.tiendas.length,
+            itemBuilder: (context, index) {
+              var tienda = Tienda.tiendas[index];
+              var disponibilidad = ((tienda.ocupado / tienda.capacidad) * 100);
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                    child: Tarjeta(
+                      nombre: tienda.nombre,
+                      direccion: tienda.direccion,
+                      calificacion: tienda.calificacion,
+                      foto: 'assets/img/KFC.png',
+                      capacidad:
+                          'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
+                      colorCapacidad: disponibilidad <= 70
+                          ? Estilos.disponible
+                          : disponibilidad > 70 && disponibilidad < 100
+                              ? Estilos.moderado
+                              : Estilos.nodisponible,
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

@@ -24,10 +24,10 @@ class Tienda {
       this.foto,
       this.ocupado});
 
-  void traerTiendas() async {
+  Future traerTiendas() async {
     //CAMBIAR URL AL INICIAR EL SERVIDOR
-    final response = await http.get(
-        'http://10.0.2.2:3000/TraerEstablecimientos');
+    final response =
+        await http.get('http://192.168.0.7:3000/traer-establecimientos');
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -53,20 +53,12 @@ class Tienda {
     }
   }
 
-  Future<http.Response> guardarEstablecimiento(String datos) async{
-
-      return await http.post('http://10.0.2.2:3000/datosEnviar',
-
-      headers: <String, String>{
-
-        'Content-Type': 'application/json; charset=UTF-8',
-
-      },
-
-      body: datos
-      
-      );
-
-  }//Fin método
+  Future<http.Response> guardarEstablecimiento(String datos) async {
+    return await http.post('http://10.0.2.2:3000/datosEnviar',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: datos);
+  } //Fin método
 
 }
