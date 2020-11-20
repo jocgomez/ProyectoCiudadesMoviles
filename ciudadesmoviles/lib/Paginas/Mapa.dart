@@ -47,6 +47,9 @@ class _MapaPaginaState extends State<MapaPagina> {
     });
 
     permisoUbicacion();
+    Tienda().traerTiendas().then((value) {
+      setState(() {});
+    });
     super.initState();
   }
 
