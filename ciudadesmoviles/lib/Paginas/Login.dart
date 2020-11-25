@@ -88,7 +88,7 @@ class _LoginPaginaState extends State<LoginPagina> {
   Widget _botonGobierno() {
     return FlatButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/home");
+          Navigator.pushNamed(context, "/Gobierno");
         },
         child: Text(
           'Información gubernamental',
