@@ -27,7 +27,7 @@ class Tienda {
   Future traerTiendas() async {
     //CAMBIAR URL AL INICIAR EL SERVIDOR
     final response =
-        await http.get('http://10.0.2.2:3000/TraerEstablecimientos');
+        await http.get('http://10.0.2.2:3000/traer-establecimientos');
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
