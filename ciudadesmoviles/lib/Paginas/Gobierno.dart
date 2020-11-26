@@ -2,6 +2,7 @@ import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 import 'package:ciudadesmoviles/Paginas/EstadoTienda.dart';
 import 'package:flutter/material.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
+import 'package:intl/intl.dart';
 
 class EnteGobiero extends StatefulWidget {
   @override
@@ -21,6 +22,9 @@ class _EnteGobierno extends State {
   static List<Tienda> tiendasmoderadas;
   static List<Tienda> tiendasnoDisponibles;
 
+  List tempTraidas;
+  List tempExcedidasDias;
+
   //Método que se ejecuta cuando se renderiza la interfaz
   @override
   void initState() {
@@ -32,6 +36,9 @@ class _EnteGobierno extends State {
 
     cantidadEstablecimientos();
     Tienda().traerTiendas();
+    Tienda().traerTemperaturasExcedidas().then((value) {
+      contarTempExcedidasPorDia(value);
+    });
   } //Fin método
 
   @override
@@ -166,39 +173,37 @@ class _EnteGobierno extends State {
     var tienda = Tienda.tiendas;
 
     for (var i = 0; i < tamanoDatos; i++) {
-      double referencia = tienda[i].capacidad / 2;
+      var disponibilidad = ((tienda[i].ocupado / tienda[i].capacidad) * 100);
 
-      if (tienda[i].ocupado < referencia) {
+      //Disponibles aquellos que la disponibilidad llega hasta el 70%
+      if (disponibilidad <= 70) {
         disponibles++;
         tiendasdisponibles.add(tienda[i]);
-      } else if (tienda[i].ocupado >= referencia &&
-          tienda[i].ocupado < tienda[i].capacidad) {
+      } else if (disponibilidad > 70 && disponibilidad < 100) {
+        //Moderados aquellos que tienen disponibilidad entre 70 y 99%
         moderados++;
         tiendasmoderadas.add(tienda[i]);
-      } else if (tienda[i].ocupado == tienda[i].capacidad) {
+      } else if (disponibilidad == 100) {
+        //No disponibls aquellos que tienene una disponibilidad dek 100%, se encuentran ocupados
         noDisponibles++;
         tiendasnoDisponibles.add(tienda[i]);
       } //Fin condición
 
     } //Fin for
-
-    print("Disponibles" + disponibles.toString());
-    print("Moderados" + moderados.toString());
-    print("No" + noDisponibles.toString());
   } //Fin método
 
   void interfazDisponible() {
     if (disponibles != 0) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              EstadoTienda(tiendasdisponibles, "disponible")));
+              EstadoTienda(tiendasdisponibles, "Disponibles")));
     }
   } //Fin método
 
   void interfazModerada() {
     if (moderados != 0) {
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => EstadoTienda(tiendasmoderadas, "moderado")));
+          builder: (context) => EstadoTienda(tiendasmoderadas, "Moderados")));
     }
   } //Fin método
 
@@ -206,7 +211,23 @@ class _EnteGobierno extends State {
     if (noDisponibles != 0) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              EstadoTienda(tiendasnoDisponibles, "no disponible")));
+              EstadoTienda(tiendasnoDisponibles, "No disponibles")));
+    }
+  }
+
+  void contarTempExcedidasPorDia(List listaTemps) {
+    try {
+      DateTime today = DateTime.now();
+      //Se recorre la lista de tiendas obtenidas
+      listaTemps.forEach((tempTiendas) {
+        //De las tiendas se obtiene todos los datos de la temp
+        tempTiendas["data"].forEach((data) {
+          var a = DateFormat('EEE, MMM d, ' 'yy', data["fecha"]);
+          print(a);
+        });
+      });
+    } catch (e) {
+      print(e);
     }
   } //Fin método
 

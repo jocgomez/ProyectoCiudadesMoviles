@@ -1,13 +1,13 @@
+import 'package:ciudadesmoviles/Componentes/Tarjeta.dart';
+import 'package:ciudadesmoviles/Estilos/Estilos.dart';
 import 'package:flutter/material.dart';
 import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 
-
-class EstadoTienda extends StatefulWidget{
-
+class EstadoTienda extends StatefulWidget {
   final List<Tienda> tiendasEstados;
-  final String cadena;
-  
-  EstadoTienda(this.tiendasEstados, this.cadena);
+  final String estado;
+
+  EstadoTienda(this.tiendasEstados, this.estado);
 
   @override
   State<StatefulWidget> createState() {
@@ -16,43 +16,65 @@ class EstadoTienda extends StatefulWidget{
 
 }
 
-class _EstadoTiendaState extends State<EstadoTienda>{
-
+class _EstadoTiendaState extends State<EstadoTienda> {
   List<Tienda> establecimientos;
   String estadoT;
 
   @override
-  void initState() { 
-
-    establecimientos =  this.widget.tiendasEstados;
-    estadoT = this.widget.cadena;
-
-    imprimir();
+  void initState() {
+    establecimientos = this.widget.tiendasEstados;
+    estadoT = this.widget.estado;
 
     super.initState();
-    
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
-
       appBar: AppBar(
-
-        title: Text("Estado tiendas"),
-
+        title: Text(estadoT),
       ),
-
+      body: RefreshIndicator(
+        onRefresh: () async {
+          Tienda().traerTiendas().then((value) {
+            setState(() {});
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/img/bgGob.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: ListView.builder(
+            itemCount: establecimientos.length,
+            itemBuilder: (context, index) {
+              var tienda = establecimientos[index];
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                    child: Tarjeta(
+                      nombre: tienda.nombre,
+                      direccion: tienda.direccion,
+                      calificacion: tienda.calificacion,
+                      foto: 'assets/img/KFC.png',
+                      capacidad:
+                          'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
+                      colorCapacidad: estadoT == "Disponibles"
+                          ? Estilos.disponible
+                          : estadoT == "Moderados"
+                              ? Estilos.moderado
+                              : Estilos.nodisponible,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
     );
- 
   }
-
-  void imprimir(){
-
-    print(establecimientos);
-    print(estadoT);
-
-  }
-
-}//Fin método
+} //Fin método

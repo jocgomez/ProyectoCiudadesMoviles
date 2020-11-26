@@ -53,6 +53,31 @@ class Tienda {
     }
   }
 
+  Future<List> traerTemperaturasExcedidas() async {
+    //CAMBIAR URL AL INICIAR EL SERVIDOR
+    final response = await http
+        .get('http://10.0.2.2:3000/traer-establecimientos/temperatura');
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      final temperaturas = jsonDecode(response.body);
+      List tempTiendas = List();
+      temperaturas.forEach((tempsBD) {
+        var tienda = {
+          "id": tempsBD['id'],
+          "data": tempsBD['data'],
+        };
+        tempTiendas.add(tienda);
+      });
+      return tempTiendas;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw new Exception("Error while fetching data");
+    }
+  }
+
   Future<http.Response> guardarEstablecimiento(String datos) async {
     return await http.post('http://10.0.2.2:3000/datosEnviar',
         headers: <String, String>{
