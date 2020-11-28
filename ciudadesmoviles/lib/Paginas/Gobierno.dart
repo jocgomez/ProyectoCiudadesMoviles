@@ -3,6 +3,7 @@ import 'package:ciudadesmoviles/Paginas/EstadoTienda.dart';
 import 'package:flutter/material.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
 import 'package:intl/intl.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class EnteGobiero extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _EnteGobierno extends State {
   static List<Tienda> tiendasnoDisponibles;
 
   List tempTraidas;
-  List tempExcedidasDias;
+  Map tempExcedidasDias;
 
   //Método que se ejecuta cuando se renderiza la interfaz
   @override
@@ -37,7 +38,9 @@ class _EnteGobierno extends State {
     cantidadEstablecimientos();
     Tienda().traerTiendas();
     Tienda().traerTemperaturasExcedidas().then((value) {
-      contarTempExcedidasPorDia(value);
+      setState(() {
+        tempExcedidasDias = contarTempExcedidasPorDia(value);
+      });
     });
   } //Fin método
 
@@ -47,7 +50,15 @@ class _EnteGobierno extends State {
       appBar: AppBar(
         title: Text("CapacidApp"),
       ),
-      body: SingleChildScrollView(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          Tienda().traerTiendas();
+          Tienda().traerTemperaturasExcedidas().then((value) {
+            setState(() {
+              tempExcedidasDias = contarTempExcedidasPorDia(value);
+            });
+          });
+        },
         child: Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Center(
@@ -159,12 +170,45 @@ class _EnteGobierno extends State {
                   height: 25,
                   child: Text("Temperaturas excedidas",
                       style: Estilos.estiloTextoTitulo),
-                )
+                ),
+                SizedBox(height: 15),
+                tempExcedidasDias != null ? _barrasTemperaturas() : SizedBox()
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _barrasTemperaturas() {
+    DateTime now = DateTime.now();
+    List<DiasExced> data = [];
+
+    tempExcedidasDias.forEach((key, value) {
+      DateTime today = new DateTime(now.year, now.month, now.day - key);
+      final diaSem = DateFormat('EEEE').format(today);
+      data.add(DiasExced(diaSem, value));
+    });
+
+    final seriesList = [
+      new charts.Series<DiasExced, String>(
+          id: 'Temperaturas',
+          domainFn: (DiasExced temp, _) => temp.dia,
+          measureFn: (DiasExced temp, _) => temp.total,
+          data: data,
+          // Set a label accessor to control the text of the bar label.
+          labelAccessorFn: (DiasExced temp, _) => '\$${temp.total.toString()}')
+    ];
+
+    return new charts.BarChart(
+      seriesList,
+      animate: true,
+      // Set a bar label decorator.
+      // Example configuring different styles for inside/outside:
+      //       barRendererDecorator: new charts.BarLabelDecorator(
+      //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
+      //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
     );
   }
 
@@ -215,21 +259,57 @@ class _EnteGobierno extends State {
     }
   }
 
-  void contarTempExcedidasPorDia(List listaTemps) {
+  Map contarTempExcedidasPorDia(List listaTemps) {
+    Map tempMaxDia = new Map();
+    Map diaTemp = new Map();
+    for (var i = 0; i < 7; i++) {
+      diaTemp[i] = 0;
+      tempMaxDia[i] = 0;
+    }
+
     try {
-      DateTime today = DateTime.now();
+      DateTime now = DateTime.now();
+      DateTime today = new DateTime(now.year, now.month, now.day);
       //Se recorre la lista de tiendas obtenidas
+
       listaTemps.forEach((tempTiendas) {
+        for (var i = 0; i < 7; i++) {
+          tempMaxDia[i] = 0;
+        }
         //De las tiendas se obtiene todos los datos de la temp
         tempTiendas["data"].forEach((data) {
-          var a =
-              DateFormat('EEE MMM dd HH:mm:ss zzzz yyyy').parse(data["fecha"]);
-          print(a);
+          if (data["fecha"] != null && data["fecha"] != "") {
+            var fecha = data["fecha"].replaceAll(' COT ', ' ');
+
+            DateTime fechaFormato =
+                DateFormat('EEE MMM d HH:mm:ss yyyy').parse(fecha);
+            DateTime fechaFinal = DateFormat('yyyy-MM-dd')
+                .parse(DateFormat('yyyy-MM-dd').format(fechaFormato));
+
+            var diferencia = today.difference(fechaFinal).inDays;
+
+            if (diferencia >= 0 && diferencia <= 7) {
+              if (data["valorT"] > tempMaxDia[diferencia]) {
+                tempMaxDia[diferencia] = data["valorT"];
+              }
+            }
+          }
         });
+        for (var i = 0; i < 7; i++) {
+          diaTemp[i] += tempMaxDia[i];
+        }
       });
+      return diaTemp;
     } catch (e) {
-      print(e);
+      throw e;
     }
   } //Fin método
 
 } //Fin clase
+
+class DiasExced {
+  final String dia;
+  final int total;
+
+  DiasExced(this.dia, this.total);
+}
