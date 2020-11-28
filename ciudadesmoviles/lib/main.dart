@@ -15,7 +15,6 @@ class MyApp extends StatefulWidget {
 class _MainPaginaState extends State<MyApp> {
   @override
   void initState() {
-    // TODO: implement initState
     Tienda().traerTiendas();
     super.initState();
   }

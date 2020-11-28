@@ -1,7 +1,6 @@
 import 'package:ciudadesmoviles/Componentes/boton.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
 import 'package:ciudadesmoviles/Modelos/Tienda.dart';
-import 'package:ciudadesmoviles/Paginas/Celular.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
@@ -16,7 +15,6 @@ class _LoginPaginaState extends State<LoginPagina> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _initLocation();
     super.initState();
   }

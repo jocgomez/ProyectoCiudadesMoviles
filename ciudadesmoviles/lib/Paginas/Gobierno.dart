@@ -222,7 +222,8 @@ class _EnteGobierno extends State {
       listaTemps.forEach((tempTiendas) {
         //De las tiendas se obtiene todos los datos de la temp
         tempTiendas["data"].forEach((data) {
-          var a = DateFormat('EEE, MMM d, ' 'yy', data["fecha"]);
+          var a =
+              DateFormat('EEE MMM dd HH:mm:ss zzzz yyyy').parse(data["fecha"]);
           print(a);
         });
       });

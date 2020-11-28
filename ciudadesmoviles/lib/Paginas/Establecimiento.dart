@@ -4,7 +4,6 @@ import 'package:ciudadesmoviles/Componentes/boton.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
 import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class Establecimientos extends StatefulWidget {
   _EstablecimientoState createState() => _EstablecimientoState();
@@ -23,7 +22,6 @@ class _EstablecimientoState extends State<Establecimientos> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

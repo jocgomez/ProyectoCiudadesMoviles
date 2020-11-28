@@ -1,6 +1,5 @@
 import 'package:ciudadesmoviles/Paginas/Celular.dart';
 import 'package:ciudadesmoviles/Paginas/Establecimiento.dart';
-import 'package:ciudadesmoviles/Paginas/EstadoTienda.dart';
 import 'package:ciudadesmoviles/Paginas/Gobierno.dart';
 import 'package:ciudadesmoviles/Paginas/Home.dart';
 import 'package:ciudadesmoviles/Paginas/Login.dart';

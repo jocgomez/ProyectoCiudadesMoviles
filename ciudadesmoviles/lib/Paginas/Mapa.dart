@@ -6,7 +6,6 @@ import 'package:ciudadesmoviles/Componentes/Tarjeta.dart';
 import 'package:ciudadesmoviles/Estilos/Estilos.dart';
 import 'package:ciudadesmoviles/Modelos/Tienda.dart';
 import 'package:ciudadesmoviles/Modelos/Usuario.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -37,7 +36,6 @@ class _MapaPaginaState extends State<MapaPagina> {
 
   @override
   void initState() {
-    // TODO: implement initState
     BitmapDescriptor.fromAssetImage(
             ImageConfiguration(size: Size(32, 32)), 'assets/img/iconos/pin.png')
         .then((onValue) {
@@ -55,7 +53,6 @@ class _MapaPaginaState extends State<MapaPagina> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     listController.dispose();
 
     if (subscription != null) {
