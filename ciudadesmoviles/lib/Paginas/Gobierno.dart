@@ -59,121 +59,125 @@ class _EnteGobierno extends State {
             });
           });
         },
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                Container(
-                  width: 340,
-                  height: 25,
-                  child: Text("Estado de los establecimientos",
-                      style: Estilos.estiloTextoTitulo),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  width: 340,
-                  height: 40,
-                  child: Text(
-                      "Para mayor información selecciona una de las siguiente opciones.",
-                      style: Estilos.estiloTextoParrafo,
-                      textAlign: TextAlign.justify),
-                ),
-                SizedBox(height: 30),
-                Container(
-                  width: 340,
-                  height: 70,
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: 70,
-                          height: 70,
-                          child: FloatingActionButton(
-                            child: Text(disponibles.toString(),
-                                style: Estilos.estiloTextoboton),
-                            onPressed: () {
-                              interfazDisponible();
-                            },
-                            backgroundColor: Colors.green,
-                            heroTag: null,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Container(
+                    width: 340,
+                    height: 25,
+                    child: Text("Estado de los establecimientos",
+                        style: Estilos.estiloTextoTitulo),
+                  ),
+                  SizedBox(height: 15),
+                  Container(
+                    width: 340,
+                    height: 40,
+                    child: Text(
+                        "Para mayor información selecciona una de las siguiente opciones.",
+                        style: Estilos.estiloTextoParrafo,
+                        textAlign: TextAlign.justify),
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    width: 340,
+                    height: 70,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 70,
+                            height: 70,
+                            child: FloatingActionButton(
+                              child: Text(disponibles.toString(),
+                                  style: Estilos.estiloTextoboton),
+                              onPressed: () {
+                                interfazDisponible();
+                              },
+                              backgroundColor: Colors.green,
+                              heroTag: null,
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: 70,
-                          height: 70,
-                          child: FloatingActionButton(
-                            child: Text(moderados.toString(),
-                                style: Estilos.estiloTextoboton),
-                            onPressed: () {
-                              interfazModerada();
-                            },
-                            backgroundColor: Colors.yellow,
-                            heroTag: null,
+                          Container(
+                            width: 70,
+                            height: 70,
+                            child: FloatingActionButton(
+                              child: Text(moderados.toString(),
+                                  style: Estilos.estiloTextoboton),
+                              onPressed: () {
+                                interfazModerada();
+                              },
+                              backgroundColor: Colors.yellow,
+                              heroTag: null,
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: 70,
-                          height: 70,
-                          child: FloatingActionButton(
-                            child: Text(noDisponibles.toString(),
-                                style: Estilos.estiloTextoboton),
-                            onPressed: () {
-                              interfaznoDisponible();
-                            },
-                            backgroundColor: Colors.red,
-                            heroTag: null,
-                          ),
-                        )
-                      ],
+                          Container(
+                            width: 70,
+                            height: 70,
+                            child: FloatingActionButton(
+                              child: Text(noDisponibles.toString(),
+                                  style: Estilos.estiloTextoboton),
+                              onPressed: () {
+                                interfaznoDisponible();
+                              },
+                              backgroundColor: Colors.red,
+                              heroTag: null,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 2),
-                Container(
-                  width: 340,
-                  height: 30,
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          width: 100,
-                          height: 30,
-                          child: Text("Disponibles",
-                              style: Estilos.estiloTextoEstado),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: 100,
-                          height: 30,
-                          child: Text("Moderados",
-                              style: Estilos.estiloTextoEstado),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: 100,
-                          height: 30,
-                          child: Text("No disponibles",
-                              style: Estilos.estiloTextoEstado),
-                        )
-                      ],
+                  SizedBox(height: 2),
+                  Container(
+                    width: 340,
+                    height: 30,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 30,
+                            child: Text("Disponibles",
+                                style: Estilos.estiloTextoEstado),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 30,
+                            child: Text("Moderados",
+                                style: Estilos.estiloTextoEstado),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 30,
+                            child: Text("No disponibles",
+                                style: Estilos.estiloTextoEstado),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 50),
-                Container(
-                  width: 340,
-                  height: 25,
-                  child: Text("Temperaturas excedidas",
-                      style: Estilos.estiloTextoTitulo),
-                ),
-                SizedBox(height: 15),
-                tempExcedidasDias != null ? _barrasTemperaturas() : SizedBox()
-              ],
+                  SizedBox(height: 50),
+                  Container(
+                    width: 340,
+                    height: 25,
+                    child: Text("Temperaturas excedidas",
+                        style: Estilos.estiloTextoTitulo),
+                  ),
+                  SizedBox(height: 15),
+                  tempExcedidasDias != null
+                      ? Container(height: 300, child: _barrasTemperaturas())
+                      : CircularProgressIndicator()
+                ],
+              ),
             ),
           ),
         ),
@@ -198,17 +202,14 @@ class _EnteGobierno extends State {
           measureFn: (DiasExced temp, _) => temp.total,
           data: data,
           // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (DiasExced temp, _) => '\$${temp.total.toString()}')
+          labelAccessorFn: (DiasExced temp, _) => '${temp.total.toString()}')
     ];
 
     return new charts.BarChart(
       seriesList,
       animate: true,
-      // Set a bar label decorator.
-      // Example configuring different styles for inside/outside:
-      //       barRendererDecorator: new charts.BarLabelDecorator(
-      //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
-      //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
+      barRendererDecorator: new charts.BarLabelDecorator<String>(),
+      domainAxis: new charts.OrdinalAxisSpec(),
     );
   }
 
