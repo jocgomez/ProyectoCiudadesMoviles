@@ -59,7 +59,7 @@ class _EstadoTiendaState extends State<EstadoTienda> {
                       nombre: tienda.nombre,
                       direccion: tienda.direccion,
                       calificacion: tienda.calificacion,
-                      foto: 'assets/img/KFC.png',
+                      foto: '${tienda.foto}',
                       capacidad:
                           'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
                       colorCapacidad: estadoT == "Disponibles"

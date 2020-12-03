@@ -149,7 +149,7 @@ class _MapaPaginaState extends State<MapaPagina> {
                                       nombre: tienda.nombre,
                                       direccion: tienda.direccion,
                                       calificacion: tienda.calificacion,
-                                      foto: 'assets/img/KFC.png',
+                                      foto: '${tienda.foto}',
                                       capacidad:
                                           'Capacidad ${tienda.ocupado}/${tienda.capacidad}',
                                       colorCapacidad: disponibilidad <= 70

@@ -97,7 +97,7 @@ class Tarjeta extends StatelessWidget {
                       CircleAvatar(
                           radius: 45,
                           backgroundColor: Colors.white,
-                          backgroundImage: AssetImage(this.foto)),
+                          backgroundImage: NetworkImage(this.foto)),
                     ],
                   ),
                 ),

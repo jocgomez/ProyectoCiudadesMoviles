@@ -190,8 +190,9 @@ class _EnteGobierno extends State {
     List<DiasExced> data = [];
 
     tempExcedidasDias.forEach((key, value) {
-      DateTime today = new DateTime(now.year, now.month, now.day - key);
-      final diaSem = DateFormat('EEEE').format(today);
+      DateTime today = new DateTime(now.year, now.month, now.day);
+      DateTime otherDay = today.subtract(Duration(days: key));
+      final diaSem = DateFormat('EEEE').format(otherDay);
       data.add(DiasExced(diaSem, value));
     });
 
@@ -272,7 +273,6 @@ class _EnteGobierno extends State {
       DateTime now = DateTime.now();
       DateTime today = new DateTime(now.year, now.month, now.day);
       //Se recorre la lista de tiendas obtenidas
-
       listaTemps.forEach((tempTiendas) {
         for (var i = 0; i < 7; i++) {
           tempMaxDia[i] = 0;
@@ -289,7 +289,7 @@ class _EnteGobierno extends State {
 
             var diferencia = today.difference(fechaFinal).inDays;
 
-            if (diferencia >= 0 && diferencia <= 7) {
+            if (diferencia >= 0 && diferencia <= 6) {
               if (data["valorT"] > tempMaxDia[diferencia]) {
                 tempMaxDia[diferencia] = data["valorT"];
               }
@@ -301,9 +301,7 @@ class _EnteGobierno extends State {
         }
       });
       return diaTemp;
-    } catch (e) {
-      throw e;
-    }
+    } catch (e) {}
   } //Fin método
 
 } //Fin clase
