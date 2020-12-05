@@ -26,7 +26,7 @@ class Tienda {
   Future traerTiendas() async {
     //CAMBIAR URL AL INICIAR EL SERVIDOR
     final response =
-        await http.get('http://10.0.2.2:3000/traer-establecimientos');
+        await http.get('http://ec2-18-234-49-252.compute-1.amazonaws.com:3000/traer-establecimientos');
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -55,7 +55,7 @@ class Tienda {
   Future<List> traerTemperaturasExcedidas() async {
     //CAMBIAR URL AL INICIAR EL SERVIDOR
     final response = await http
-        .get('http://10.0.2.2:3000/traer-establecimientos/temperatura');
+        .get('http://ec2-18-234-49-252.compute-1.amazonaws.com:3000/traer-establecimientos/temperatura');
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -78,7 +78,7 @@ class Tienda {
   }
 
   Future<http.Response> guardarEstablecimiento(String datos) async {
-    return await http.post('http://10.0.2.2:3000/datosEnviar',
+    return await http.post('http://ec2-18-234-49-252.compute-1.amazonaws.com:3000/datos-establecimiento',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

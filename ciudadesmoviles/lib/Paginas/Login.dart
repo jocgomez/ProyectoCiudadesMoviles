@@ -71,14 +71,6 @@ class _LoginPaginaState extends State<LoginPagina> {
             funcion: () {
               _interfazCelular();
             }),
-        BotonAtomo(
-            color: Estilos.colorazul,
-            estiloTexto: Estilos.estiloTextoBoton,
-            texto: " Iniciar con Gmail ",
-            colorBorde: Estilos.bordeBoton,
-            funcion: () {
-              print(Tienda.tiendas[0]);
-            }),
       ],
     );
   }
